@@ -94,6 +94,7 @@ class OAdam(Optimizer):
                 step_size = group['lr'] * math.sqrt(bias_correction2) / bias_correction1
 
                 # Optimistic update :)
+                # TODO: Check if this should be step_size instead of step_size / 2.0
                 p.data.addcdiv_(step_size / 2.0, exp_avg, exp_avg_sq.sqrt().add(group['eps']))
 
                 # Decay the first and second moment running average coefficient
@@ -107,6 +108,7 @@ class OAdam(Optimizer):
                 else:
                     denom = exp_avg_sq.sqrt().add_(group['eps'])
 
+                # TODO: Check if this should be 2 * step_size instead of step_size
                 p.data.addcdiv_(-step_size, exp_avg, denom)
 
         return loss
