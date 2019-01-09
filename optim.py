@@ -1,6 +1,6 @@
 import math
 import torch
-from torch.optimizer import Optimizer
+from torch.optim import Optimizer
 
 
 class OAdam(Optimizer):
@@ -21,10 +21,8 @@ class OAdam(Optimizer):
             algorithm from the paper `On the Convergence of Adam and Beyond`_
             (default: False)
 
-    .. _Adam\: A Method for Stochastic Optimization:
-        https://arxiv.org/abs/1412.6980
-    .. _On the Convergence of Adam and Beyond:
-        https://openreview.net/forum?id=ryQu7f-RZ
+    .. _Training GANs with Optimism:
+        https://arxiv.org/abs/1711.00141
     """
 
     def __init__(self, params, lr=1e-3, betas=(0.9, 0.999), eps=1e-8,
@@ -39,7 +37,7 @@ class OAdam(Optimizer):
             raise ValueError("Invalid beta parameter at index 1: {}".format(betas[1]))
         defaults = dict(lr=lr, betas=betas, eps=eps,
                         weight_decay=weight_decay, amsgrad=amsgrad)
-        super(Adam, self).__init__(params, defaults)
+        super(OAdam, self).__init__(params, defaults)
 
     def __setstate__(self, state):
         super(Adam, self).__setstate__(state)
